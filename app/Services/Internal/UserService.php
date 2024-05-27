@@ -2,8 +2,11 @@
 
 namespace App\Services\Internal;
 
+use Error;
+use App\Exceptions\Errors;
 use App\Repositories\UserRepo;
 use Laravel\Sanctum\PersonalAccessToken;
+
 class UserService 
 {
    public function __construct(
@@ -19,7 +22,11 @@ class UserService
 
    public function updateUser($token, $data) {
       $id = $this->getUser($token);
-      return $this->userRepo->update($id['id'], $data);
+      try {
+         return $result = $this->userRepo->update($id['id'], $data);
+      } catch (Error $erro) {
+         throw new Errors($erro, 409);
+      }
    }
 
 }
