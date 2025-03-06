@@ -30,6 +30,14 @@ class UserRepo
           return $this->user->query()->where('email',$email)->first();
      }
 
+     public function findByName($name) {
+          return $this->user->query()->where('username', 'like', '%'.$name.'%')->first($columns = ['*']);
+     }
+
+     public function findById($userId) {
+          return $this->user->query()->where('id', $userId)->first();
+     }
+
      public function findUser($email) {
           return $result = $this->user->with('follow')->where('email',$email)->first();
      } 

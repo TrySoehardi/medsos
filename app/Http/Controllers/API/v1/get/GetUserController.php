@@ -14,7 +14,13 @@ class GetUserController extends BaseController
     ) {}
     
     public function index(Request $request) {
-        $result = $this->userService->getUser($request->bearerToken());
-        return $this->response($result, 200);
+        if($request->query('user')) {
+            $name = $request->query('user');
+            $result = $this->userService->getUserByName($name);
+            return $this->response($result, 200);
+        } else {
+            $result = $this->userService->getUser($request->bearerToken());
+            return $this->response($result, 200);
+        }
     }
 }

@@ -14,9 +14,24 @@ class UserService
    )
    {}
 
+   public function getUserByName($name) {
+      $result = $this->userRepo->findByName($name);
+      return $result;
+   }
+
+   public function getUserByEmail($email) {
+      $result = $this->userRepo->findByEmail($email);
+      return $result;
+   }
+
    public function getUser($token) {
       $email = PersonalAccessToken::findToken($token)->first();
       $result = $this->userRepo->findUser($email['name']);
+      return $result;
+   }
+
+   public function getUserById($userId) {
+      $result = $this->userRepo->findById($userId);
       return $result;
    }
 

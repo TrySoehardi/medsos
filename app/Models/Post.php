@@ -15,8 +15,15 @@ class Post extends Model
         return $this->hasMany(Like::class)->latestOfMany();
     }
 
-    public function comment(): HasOne {
-        return $this->hasMany(Comment::class)->latestOfMany();
+    public function comment() {
+        return $this->hasMany(Comment::class);
     }
+
+    protected $fillable = [
+        'user_id',
+        'content',
+        'media_type',
+        'media_url'
+    ];
 
 }
